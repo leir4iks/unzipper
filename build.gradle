@@ -7,8 +7,11 @@ group = 'org.example'
 version = '1.0.0'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 repositories {
@@ -26,7 +29,7 @@ application {
     mainClass = 'org.example.Unarchiver'
 }
 
-// Настройка Gradle Wrapper
+// Настройка Gradle Wrapper для Java 17 совместимости
 wrapper {
     gradleVersion = '8.5'
     distributionType = Wrapper.DistributionType.BIN
@@ -59,8 +62,10 @@ task runApp(type: JavaExec) {
 
 compileJava {
     options.encoding = 'UTF-8'
+    options.release = 17
 }
 
 compileTestJava {
     options.encoding = 'UTF-8'
+    options.release = 17
 }
