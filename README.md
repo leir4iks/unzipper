@@ -1,7 +1,7 @@
 # 📦 Unzipper / Распаковщик
 
 [![Java](https://img.shields.io/badge/Java-17+-orange.svg)](https://www.oracle.com/java/)
-[![Release](https://img.shields.io/github/v/release/leir4iks/unzipper)](https://github.com/leir4iks/unzipper/releases)
+[![Release](https://img.shields.io/github/v/release/leir4iks/unzipper?include_prereleases)](https://github.com/leir4iks/unzipper/releases)
 
 A powerful command-line archive extractor supporting multiple formats / Консольный распаковщик архивов с поддержкой множества форматов
 
