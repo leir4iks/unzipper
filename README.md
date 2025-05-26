@@ -45,15 +45,18 @@ unzip archive.zip /path/to/destination
 Supported formats / Поддерживаемые форматы:
 ```unzip file.zip
 unzip archive.tar.gz
-unzip package.rar```
+unzip package.rar
+```
 
 Exit program / Выход из программы:
-```stop```
+```stop
+```
 
 ### Examples / Примеры
 
 #### English
-unzip backup.zip
+```unzip backup.zip
+```
 ✅ Successfully extracted ZIP archive to: /current/directory
 
 unzip data.tar.gz /home/user/extracted
