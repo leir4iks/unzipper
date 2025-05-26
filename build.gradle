@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
     implementation 'org.apache.commons:commons-compress:1.27.1'
+    implementation 'com.github.junrar:junrar:7.5.5'
     
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -29,7 +30,6 @@ application {
     mainClass = 'org.example.Unarchiver'
 }
 
-// Настройка Gradle Wrapper для Java 17 совместимости
 wrapper {
     gradleVersion = '8.5'
     distributionType = Wrapper.DistributionType.BIN
