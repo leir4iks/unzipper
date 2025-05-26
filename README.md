@@ -37,39 +37,55 @@ A powerful command-line archive extractor supporting multiple formats / Конс
 ### Basic Commands / Основные команды
 
 Extract to current directory / Распаковать в текущую папку:
-`unzip archive.zip`
+
+```unzip archive.zip
+```
 
 Extract to specific directory / Распаковать в указанную папку:
-`unzip archive.zip /path/to/destination`
+
+```unzip archive.zip /path/to/destination
+```
 
 Supported formats / Поддерживаемые форматы:
-`unzip file.zip`
-`unzip archive.tar.gz`
-`unzip package.rar`
+
+```unzip file.zip
+unzip archive.tar.gz
+unzip package.rar
+```
 
 Exit program / Выход из программы:
-`stop`
+
+```stop
+```
 
 ### Examples / Примеры
 
 #### English
-`unzip backup.zip`
+
+```unzip backup.zip
+```
 ✅ Successfully extracted ZIP archive to: /current/directory
 
-`unzip data.tar.gz /home/user/extracted`
+```unzip data.tar.gz /home/user/extracted
+```
 ✅ Successfully extracted TAR.GZ archive to: /home/user/extracted
 
-`unzip package.rar /tmp/files`
+```unzip package.rar /tmp/files
+```
 ✅ Successfully extracted RAR archive to: /tmp/files
 
 #### Русский
-`unzip резервная_копия.zip`
+
+```unzip резервная_копия.zip
+```
 ✅ Архив ZIP успешно распакован в: /текущая/папка
 
-`unzip данные.tar.gz /home/user/извлечено`
+```unzip данные.tar.gz /home/user/извлечено
+```
 ✅ Архив TAR.GZ успешно распакован в: /home/user/извлечено
 
-`unzip пакет.rar /tmp/файлы`
+```unzip пакет.rar /tmp/файлы
+```
 ✅ Архив RAR успешно распакован в: /tmp/файлы
 
 ---
@@ -80,19 +96,27 @@ Exit program / Выход из программы:
 **When running unzipper on Pterodactyl panel, use paths starting with `home/container/`:**
 
 Extract to server directory:
-`unzip backup.zip home/container/server/`
+
+```unzip backup.zip home/container/
+```
 
 Extract to plugins folder:
-`unzip plugins.zip home/container/server/plugins/`
+
+```unzip plugins.zip home/container/plugins/
+```
 
 Extract to specific world folder:
-`unzip world.tar.gz home/container/server/worlds/survival/`
+
+```unzip world.tar.gz home/container/worlds/survival/
+```
 
 ### Русский
 **При запуске распаковщика в панели Pterodactyl используйте пути, начинающиеся с `home/container/`:**
 
 Распаковать в папку сервера:
-`unzip backup.zip home/container/server/`
+
+```unzip backup.zip home/container/
+```
 
 Распаковать в папку плагинов:
 `unzip plugins.zip home/container/server/plugins/`
