@@ -26,6 +26,12 @@ application {
     mainClass = 'org.example.Unarchiver'
 }
 
+// Настройка Gradle Wrapper
+wrapper {
+    gradleVersion = '8.5'
+    distributionType = Wrapper.DistributionType.BIN
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
@@ -51,7 +57,6 @@ task runApp(type: JavaExec) {
     mainClass = 'org.example.Unarchiver'
 }
 
-// Настройки компиляции
 compileJava {
     options.encoding = 'UTF-8'
 }
