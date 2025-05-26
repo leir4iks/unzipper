@@ -157,14 +157,14 @@ unzip world.tar.gz home/container/worlds/survival/
 1. Download the latest JAR file from [releases](https://github.com/leir4iks/unzipper/releases)
 2. Run with Java 17+:
 ```
-java -jar unzipper-1.0.0.jar
+java -jar unzipper.jar
 ```
 
 #### Русский
 1. Скачайте последний JAR файл из [релизов](https://github.com/leir4iks/unzipper/releases)
 2. Запустите с Java 17+:
 ```
-java -jar unzipper-1.0.0.jar
+java -jar unzipper.jar
 ```
 
 ---
