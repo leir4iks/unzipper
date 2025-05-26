@@ -27,9 +27,9 @@ public class Unarchiver {
         try {
             System.out.println("unzipper (type 'stop' to quit)");
             System.out.println("Available commands:");
-            System.out.println("  unzip <file>                    - Extract to current directory");
-            System.out.println("  unzip <file> <destination>      - Extract to specified directory");
-            System.out.println("  stop                            - Quit the program");
+            System.out.println("  unzip <file>                    - Extract to current directory.");
+            System.out.println("  unzip <file> <destination>      - Extract to specified directory.");
+            System.out.println("  stop                            - Quit the program.");
             System.out.println("Supported formats: .zip, .tar.gz, .rar");
 
             while (true) {
