@@ -7,19 +7,15 @@ on:
     branches: [ "main", "master" ]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  setup-wrapper:
+  build-and-test:
     runs-on: ubuntu-latest
-    outputs:
-      wrapper-created: ${{ steps.check_wrapper.outputs.wrapper_missing }}
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -27,147 +23,30 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     
-    - name: Check if Gradle Wrapper exists
-      id: check_wrapper
+    - name: Create Gradle Wrapper if missing
       run: |
         if [ ! -f "./gradlew" ] || [ ! -f "./gradle/wrapper/gradle-wrapper.jar" ]; then
-          echo "wrapper_missing=true" >> $GITHUB_OUTPUT
-          echo "Gradle Wrapper is missing"
-        else
-          echo "wrapper_missing=false" >> $GITHUB_OUTPUT
-          echo "Gradle Wrapper exists"
+          echo "Creating Gradle Wrapper..."
+          gradle wrapper --gradle-version 8.5 --distribution-type bin
+          chmod +x gradlew
         fi
     
-    - name: Generate Gradle Wrapper
-      if: steps.check_wrapper.outputs.wrapper_missing == 'true'
-      run: |
-        echo "Generating Gradle Wrapper..."
-        gradle wrapper --gradle-version 8.5 --distribution-type bin
-        chmod +x gradlew
-        
-        # Проверяем что все файлы созданы
-        ls -la gradlew* gradle/wrapper/
-    
-    - name: Commit Gradle Wrapper
-      if: steps.check_wrapper.outputs.wrapper_missing == 'true'
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        
-        # Добавляем все файлы wrapper'а
-        git add gradlew gradlew.bat gradle/wrapper/gradle-wrapper.jar gradle/wrapper/gradle-wrapper.properties
-        
-        if git diff --staged --quiet; then
-          echo "No changes to commit"
-        else
-          git commit -m "Add Gradle Wrapper files for Java 17"
-          git push
-          echo "Gradle Wrapper committed and pushed"
-        fi
-
-  test:
-    runs-on: ubuntu-latest
-    needs: setup-wrapper
-    # Ждем завершения setup-wrapper и перечитываем репозиторий
-    
-    steps:
-    - name: Checkout code (fresh)
-      uses: actions/checkout@v4
-      with:
-        # Принудительно получаем последние изменения
-        ref: ${{ github.ref }}
-        fetch-depth: 0
-    
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-    
-    - name: Verify Gradle Wrapper files
-      run: |
-        echo "Checking for Gradle Wrapper files..."
-        if [ -f "./gradlew" ]; then
-          echo "✅ gradlew exists: $(ls -la gradlew)"
-        else
-          echo "❌ gradlew missing"
-        fi
-        
-        if [ -f "./gradle/wrapper/gradle-wrapper.jar" ]; then
-          echo "✅ gradle-wrapper.jar exists: $(ls -la gradle/wrapper/gradle-wrapper.jar)"
-        else
-          echo "❌ gradle-wrapper.jar missing"
-          echo "Contents of gradle/wrapper/:"
-          ls -la gradle/wrapper/ || echo "gradle/wrapper/ directory doesn't exist"
-        fi
-        
-        if [ -f "./gradle/wrapper/gradle-wrapper.properties" ]; then
-          echo "✅ gradle-wrapper.properties exists"
-        else
-          echo "❌ gradle-wrapper.properties missing"
-        fi
-    
-    - name: Setup Gradle (without validation)
+    - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
       with:
         validate-wrappers: false
-    
-    - name: Make gradlew executable
-      run: chmod +x ./gradlew
-    
-    - name: Verify Java version
-      run: |
-        java -version
-        echo "JAVA_HOME: $JAVA_HOME"
-        ./gradlew -version
-    
-    - name: Build with Gradle
-      run: ./gradlew build
     
     - name: Run tests
       run: ./gradlew test
     
     - name: Build JAR
-      run: ./gradlew jar
-    
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: unzipper-jar-java17
-        path: build/libs/*.jar
-        retention-days: 30
-
-  build-release:
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-    
-    - name: Setup Gradle (without validation)
-      uses: gradle/actions/setup-gradle@v3
-      with:
-        validate-wrappers: false
-    
-    - name: Make gradlew executable
-      run: chmod +x ./gradlew
-    
-    - name: Build release JAR
       run: ./gradlew clean build jar
     
-    - name: Upload release artifacts
+    # Загружаем артефакт только для main/master ветки
+    - name: Upload JAR artifact
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
       uses: actions/upload-artifact@v4
       with:
-        name: unzipper-release-java17
-        path: |
-          build/libs/*.jar
-          build/distributions/*
-        retention-days: 90
+        name: unzipper
+        path: build/libs/unzipper-*.jar
+        retention-days: 30
