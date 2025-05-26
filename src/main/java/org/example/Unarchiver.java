@@ -27,10 +27,10 @@ public class Unarchiver {
         try {
             System.out.println("unzipper (type 'stop' to quit)");
             System.out.println("Available commands:");
-            System.out.println("  unzip <file.zip>    - Extract ZIP archive");
-            System.out.println("  unzip <file.tar.gz> - Extract TAR.GZ archive");
-            System.out.println("  unzip <file.rar>    - Extract RAR archive");
-            System.out.println("  stop                - Quit the program");
+            System.out.println("  unzip <file>                    - Extract to current directory");
+            System.out.println("  unzip <file> <destination>      - Extract to specified directory");
+            System.out.println("  stop                            - Quit the program");
+            System.out.println("Supported formats: .zip, .tar.gz, .rar");
 
             while (true) {
                 System.out.print("> ");
@@ -42,23 +42,26 @@ public class Unarchiver {
                 }
 
                 if (!input.startsWith("unzip ")) {
-                    System.out.println("❌ Unknown command. Use 'unzip <filename>'");
+                    System.out.println("❌ Unknown command. Use 'unzip <filename> [destination]'");
                     continue;
                 }
 
-                String filename = input.substring(6).trim();
-                if (filename.isEmpty()) {
+                String[] parts = parseCommand(input.substring(6).trim());
+                if (parts == null) {
                     System.out.println("❌ Please specify a filename");
                     continue;
                 }
 
+                String filename = parts[0];
+                String destination = parts[1]; // может быть null
+
                 try {
                     if (filename.endsWith(".tar.gz")) {
-                        extractTarGz(filename);
+                        extractTarGz(filename, destination);
                     } else if (filename.endsWith(".zip")) {
-                        extractZip(filename);
+                        extractZip(filename, destination);
                     } else if (filename.endsWith(".rar")) {
-                        extractRar(filename);
+                        extractRar(filename, destination);
                     } else {
                         System.out.println("❌ Unsupported file format. Only .zip, .tar.gz and .rar are supported");
                     }
@@ -71,13 +74,47 @@ public class Unarchiver {
         }
     }
 
-    private static void extractTarGz(String filePath) throws IOException {
+    /**
+     * Парсит команду и возвращает массив [filename, destination]
+     * destination может быть null если не указан
+     */
+    private static String[] parseCommand(String command) {
+        if (command.isEmpty()) {
+            return null;
+        }
+
+        // Простой парсинг с учетом пробелов в путях
+        String[] parts = command.split("\\s+", 2);
+        String filename = parts[0];
+        String destination = parts.length > 1 ? parts[1] : null;
+
+        return new String[]{filename, destination};
+    }
+
+    /**
+     * Определяет директорию для извлечения
+     */
+    private static Path getOutputDirectory(String archivePath, String destination) {
+        if (destination != null && !destination.trim().isEmpty()) {
+            // Если указан путь назначения, используем его
+            return Path.of(destination.trim()).toAbsolutePath();
+        } else {
+            // Если путь не указан, извлекаем в директорию где лежит архив
+            Path archiveFile = Path.of(archivePath).toAbsolutePath();
+            return archiveFile.getParent();
+        }
+    }
+
+    private static void extractTarGz(String filePath, String destination) throws IOException {
         Path source = Path.of(filePath).toAbsolutePath();
         if (!Files.exists(source)) {
             throw new IOException("File not found: " + source);
         }
 
-        Path outputDir = Path.of("").toAbsolutePath();
+        Path outputDir = getOutputDirectory(filePath, destination);
+        
+        // Создаем директорию назначения если она не существует
+        Files.createDirectories(outputDir);
         
         try (InputStream fi = Files.newInputStream(source);
              BufferedInputStream bi = new BufferedInputStream(fi);
@@ -90,7 +127,7 @@ public class Unarchiver {
                     Path targetPath = outputDir.resolve(entry.getName()).normalize();
                     
                     if (!targetPath.startsWith(outputDir)) {
-                        throw new IOException("Blocked attempt to extract outside working directory: " + entry.getName());
+                        throw new IOException("Blocked attempt to extract outside target directory: " + entry.getName());
                     }
 
                     Path parent = targetPath.getParent();
@@ -107,16 +144,20 @@ public class Unarchiver {
             }
         }
 
-        System.out.println("✅ Successfully extracted TAR.GZ archive to current directory");
+        System.out.println("✅ Successfully extracted TAR.GZ archive to: " + outputDir);
     }
 
-    private static void extractZip(String filePath) throws IOException {
+    private static void extractZip(String filePath, String destination) throws IOException {
         Path source = Path.of(filePath).toAbsolutePath();
         if (!Files.exists(source)) {
             throw new IOException("File not found: " + source);
         }
 
-        Path outputDir = Path.of("").toAbsolutePath();
+        Path outputDir = getOutputDirectory(filePath, destination);
+        
+        // Создаем директорию назначения если она не существует
+        Files.createDirectories(outputDir);
+        
         byte[] buffer = new byte[1024];
 
         try (FileInputStream fis = new FileInputStream(source.toFile());
@@ -129,7 +170,7 @@ public class Unarchiver {
                     Path targetPath = outputDir.resolve(zipEntry.getName()).normalize();
                     
                     if (!targetPath.startsWith(outputDir)) {
-                        throw new IOException("Blocked attempt to extract outside working directory: " + zipEntry.getName());
+                        throw new IOException("Blocked attempt to extract outside target directory: " + zipEntry.getName());
                     }
 
                     Path parent = targetPath.getParent();
@@ -152,16 +193,19 @@ public class Unarchiver {
             }
         }
 
-        System.out.println("✅ Successfully extracted ZIP archive to current directory");
+        System.out.println("✅ Successfully extracted ZIP archive to: " + outputDir);
     }
 
-    private static void extractRar(String filePath) throws IOException {
+    private static void extractRar(String filePath, String destination) throws IOException {
         Path source = Path.of(filePath).toAbsolutePath();
         if (!Files.exists(source)) {
             throw new IOException("File not found: " + source);
         }
 
-        Path outputDir = Path.of("").toAbsolutePath();
+        Path outputDir = getOutputDirectory(filePath, destination);
+        
+        // Создаем директорию назначения если она не существует
+        Files.createDirectories(outputDir);
 
         try (Archive archive = new Archive(source.toFile())) {
             FileHeader fileHeader;
@@ -170,7 +214,7 @@ public class Unarchiver {
                     Path targetPath = outputDir.resolve(fileHeader.getFileName()).normalize();
                     
                     if (!targetPath.startsWith(outputDir)) {
-                        throw new IOException("Blocked attempt to extract outside working directory: " + fileHeader.getFileName());
+                        throw new IOException("Blocked attempt to extract outside target directory: " + fileHeader.getFileName());
                     }
 
                     Path parent = targetPath.getParent();
@@ -189,6 +233,6 @@ public class Unarchiver {
             throw new IOException("Error extracting RAR archive: " + e.getMessage());
         }
 
-        System.out.println("✅ Successfully extracted RAR archive to current directory");
+        System.out.println("✅ Successfully extracted RAR archive to: " + outputDir);
     }
 }
