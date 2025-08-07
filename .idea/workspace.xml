@@ -4,27 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3627d1ec-58aa-4c7a-ba86-ad305250503a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/Unarchiver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/cli/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/cli/ExtractCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/cli/ListCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/extraction/AbstractTarExtraction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/extraction/Extraction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/extraction/ExtractionFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/extraction/RarExtraction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/extraction/SevenZipExtraction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/extraction/TarBz2Extraction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/extraction/TarGzExtraction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/extraction/ZipExtraction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/localization/Messages.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Unarchiver.java" beforeDir="false" />
+    <list default="true" id="3627d1ec-58aa-4c7a-ba86-ad305250503a" name="Changes" comment="fix shit code (1)">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leir4iks/cli/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/cli/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,11 +77,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1754575239483</updated>
-      <workItem from="1754575246064" duration="3397000" />
+      <workItem from="1754575246064" duration="4149000" />
     </task>
+    <task id="LOCAL-00001" summary="fix shit code (1)">
+      <option name="closed" value="true" />
+      <created>1754578955326</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1754578955326</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix shit code (1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix shit code (1)" />
   </component>
 </project>

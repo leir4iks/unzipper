@@ -15,9 +15,12 @@ import picocli.CommandLine.Unmatched;
                 ListCommand.class
         }
 )
-public class App {
+public class App implements Runnable {
 
         @Unmatched
         private List<String> unmatched;
 
+        @Override
+        public void run() {
+        }
 }
