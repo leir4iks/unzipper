@@ -58,9 +58,7 @@ jar {
 compileJava {
     options.encoding = 'UTF-8'
     options.release = 17
-    options.compilerArgs += [
-            '-Apicocli.generatingAnnotationProcessor=true'
-    ]
+    options.compilerArgs.add('-Apicocli.generatingAnnotationProcessor=true')
 }
 
 compileTestJava {
