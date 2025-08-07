@@ -1,6 +1,5 @@
 package com.leir4iks;
 
-import com.leir4iks.cli.App;
 import picocli.CommandLine;
 
 public class Unarchiver {

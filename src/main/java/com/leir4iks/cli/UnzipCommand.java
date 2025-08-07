@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -16,11 +15,11 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
 @Command(
-        name = "extract",
+        name = "unzip",
         mixinStandardHelpOptions = true,
         description = "Extracts files from one or more archives."
 )
-public class ExtractCommand implements Callable<Integer> {
+public class UnzipCommand implements Runnable {
 
     @Parameters(index = "0..*", description = "The archive file(s) to extract.")
     private List<Path> archivePaths;
@@ -29,10 +28,10 @@ public class ExtractCommand implements Callable<Integer> {
     private Path destinationPath;
 
     @Override
-    public Integer call() {
+    public void run() {
         if (archivePaths == null || archivePaths.isEmpty()) {
             System.err.print(Messages.ERROR_NO_ARCHIVES_SPECIFIED);
-            return 1;
+            return;
         }
 
         int availableProcessors = Runtime.getRuntime().availableProcessors();
@@ -53,7 +52,6 @@ public class ExtractCommand implements Callable<Integer> {
         }
 
         System.out.print(Messages.SUCCESS_ALL_TASKS_COMPLETED);
-        return 0;
     }
 
     private void processArchive(Path archivePath) {
