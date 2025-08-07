@@ -1,7 +1,9 @@
 package com.leir4iks.cli;
 
+import java.util.List;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Unmatched;
 
 @Command(
         name = "unarchiver",
@@ -14,4 +16,8 @@ import picocli.CommandLine.Command;
         }
 )
 public class App {
+
+        @Unmatched
+        private List<String> unmatched;
+
 }
