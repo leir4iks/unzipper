@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3627d1ec-58aa-4c7a-ba86-ad305250503a" name="Changes" comment="fix shit code (1)">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leir4iks/cli/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/cli/App.java" afterDir="false" />
+    <list default="true" id="3627d1ec-58aa-4c7a-ba86-ad305250503a" name="Changes" comment="fix shit code (5)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leir4iks/extraction/AbstractTarExtraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leir4iks/extraction/AbstractTarExtraction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +20,23 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="unzipper" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -77,7 +95,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1754575239483</updated>
-      <workItem from="1754575246064" duration="4149000" />
+      <workItem from="1754575246064" duration="10173000" />
+      <workItem from="1758911574154" duration="354000" />
     </task>
     <task id="LOCAL-00001" summary="fix shit code (1)">
       <option name="closed" value="true" />
@@ -87,7 +106,39 @@
       <option name="project" value="LOCAL" />
       <updated>1754578955326</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix shit code (2)">
+      <option name="closed" value="true" />
+      <created>1754579475148</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1754579475148</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix shit code (3)">
+      <option name="closed" value="true" />
+      <created>1754582925925</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1754582925925</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix shit code (4)">
+      <option name="closed" value="true" />
+      <created>1754583488366</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1754583488366</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix shit code (5)">
+      <option name="closed" value="true" />
+      <created>1754583789455</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1754583789455</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -95,6 +146,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix shit code (1)" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix shit code (1)" />
+    <MESSAGE value="fix shit code (2)" />
+    <MESSAGE value="fix shit code (3)" />
+    <MESSAGE value="fix shit code (4)" />
+    <MESSAGE value="fix shit code (5)" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix shit code (5)" />
   </component>
 </project>

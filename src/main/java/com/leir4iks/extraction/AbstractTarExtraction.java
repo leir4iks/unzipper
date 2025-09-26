@@ -24,7 +24,21 @@ public abstract class AbstractTarExtraction implements Extraction {
              TarArchiveInputStream ti = new TarArchiveInputStream(decompressedStream)) {
 
             TarArchiveEntry entry;
-            while ((entry = ti.getNextTarEntry()) != null) {
+            while (true) {
+                try {
+                    entry = ti.getNextTarEntry();
+                    if (entry == null) {
+                        break;
+                    }
+                } catch (IOException e) {
+                    if (e.getMessage() != null && e.getMessage().contains("Gzip-compressed data is corrupt")) {
+                        System.err.println("Warning: Corrupted Gzip data detected. Attempting to skip to the next entry.");
+                        continue;
+                    } else {
+                        throw e;
+                    }
+                }
+
                 if (!entry.isDirectory()) {
                     Path targetPath = destinationDirectory.resolve(entry.getName()).normalize();
                     if (!targetPath.startsWith(destinationDirectory)) {
@@ -51,7 +65,20 @@ public abstract class AbstractTarExtraction implements Extraction {
              TarArchiveInputStream ti = new TarArchiveInputStream(decompressedStream)) {
 
             TarArchiveEntry entry;
-            while ((entry = ti.getNextTarEntry()) != null) {
+            while (true) {
+                try {
+                    entry = ti.getNextTarEntry();
+                    if (entry == null) {
+                        break;
+                    }
+                } catch (IOException e) {
+                    if (e.getMessage() != null && e.getMessage().contains("Gzip-compressed data is corrupt")) {
+                        System.err.println("Warning: Corrupted Gzip data detected. Attempting to skip to the next entry.");
+                        continue;
+                    } else {
+                        throw e;
+                    }
+                }
                 fileNames.add(entry.getName());
             }
         }
